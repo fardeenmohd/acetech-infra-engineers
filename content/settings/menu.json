@@ -1,0 +1,16 @@
+{
+  "menuItems": [
+    {
+      "label": "Home",
+      "link": "/"
+    },
+    {
+      "label": "Contact",
+      "link": "/contact"
+    },
+    {
+      "label": "Projects",
+      "link": "/blog"
+    }
+  ]
+}
