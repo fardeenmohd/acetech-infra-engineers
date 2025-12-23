@@ -16,5 +16,17 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Acetech Infra Engineers`,
+        short_name: `Acetech`,
+        start_url: `/`,
+        background_color: `#1e3a8a`, // Your brand blue
+        theme_color: `#1e3a8a`,
+        display: `minimal-ui`,
+        icon: `src/images/icon.png`, // <--- This path must match your file
+      },
+    },
   ],
 }
