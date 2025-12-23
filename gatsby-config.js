@@ -1,9 +1,20 @@
-/**
- * @type {import('gatsby').GatsbyConfig}
- */
 module.exports = {
   siteMetadata: {
-    siteUrl: `https://www.yourdomain.tld`,
+    title: `Acetech Infra Engineers`,
+    description: `Expert Construction Services in Gurugram`,
+    author: `@acetech`,
   },
-  plugins: [],
+  plugins: [
+    `gatsby-plugin-postcss`,
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
+  ],
 }
