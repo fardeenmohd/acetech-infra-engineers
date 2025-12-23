@@ -8,6 +8,7 @@ export const servicesData = {
   residential: {
     title: "Residential Construction",
     slug: "/residential",
+    imageName: "residential",
     heroText: "Building your dream home with engineering precision.",
     description: "We focus on blending structural integrity with modern aesthetics. Every home we build in Gurugram is safe, durable, and ready for the future.",
     points: [
@@ -21,6 +22,7 @@ export const servicesData = {
   commercial: {
     title: "Commercial Construction",
     slug: "/commercial",
+    imageName: "commercial",
     heroText: "Infrastructure that powers productivity and growth.",
     description: "Commercial spaces need to be functional and impressive. We deliver high-load structures and seamless MEP integration.",
     points: [
@@ -34,6 +36,7 @@ export const servicesData = {
   industrial: {
     title: "Industrial Construction",
     slug: "/industrial",
+    imageName: "industrial",
     heroText: "Heavy-duty infrastructure for demanding operations.",
     description: "From manufacturing plants to warehouses, we engineer robust environments designed to handle operational intensity.",
     points: [
@@ -47,6 +50,7 @@ export const servicesData = {
   school: {
     title: "School Construction",
     slug: "/school",
+    imageName: "school",
     heroText: "Building the future, one classroom at a time.",
     description: "We construct safe, functional, and inspiring educational environments focusing on safety and light.",
     points: [
@@ -60,6 +64,7 @@ export const servicesData = {
   hospital: {
     title: "Hospital Construction",
     slug: "/hospital",
+    imageName: "hospital",
     heroText: "Sanctuaries for healing, built with technical excellence.",
     description: "Healthcare construction requires complex integration of life-saving technology and hygiene standards.",
     points: [
@@ -73,6 +78,7 @@ export const servicesData = {
   importExport: {
     title: "Import/Export of Goods",
     slug: "/import-export",
+    imageName: "import-export",
     heroText: "Connecting your business to the world.",
     description: "Navigating global supply chains with regulatory expertise and strategic logistics.",
     points: [

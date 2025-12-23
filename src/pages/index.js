@@ -10,7 +10,7 @@ const IndexPage = () => {
       <div className="bg-acetech-blue text-white py-24 px-4 text-center">
         <h1 className="text-4xl md:text-6xl font-bold mb-6">Building the Future in Gurugram</h1>
         <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90">
-          Specialized in Residential, Commercial, Industrial, and Healthcare Infrastructure.
+          Specialized in Residential, Commercial, Industrial, Healthcare Infrastructure, and Import/Export of Goods.
         </p>
         <Link to="/contact" className="bg-acetech-orange text-white px-8 py-3 rounded font-bold hover:bg-orange-600 transition">
           Get a Quote

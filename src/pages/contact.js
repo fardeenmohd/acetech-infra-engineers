@@ -1,50 +1,115 @@
 import React from "react"
+import { graphql } from "gatsby"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/Layout"
 import { companyDetails } from "../data/servicesData"
 
-const ContactPage = () => {
+const ContactPage = ({ data }) => {
+  // Get the image data from the query below
+  const contactImage = getImage(data.file)
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-16">
         <h1 className="text-4xl font-bold text-center mb-12 text-acetech-blue">Contact Us</h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Contact Details */}
-          <div className="bg-gray-50 p-8 rounded-lg">
-            <h2 className="text-2xl font-bold mb-6">Get In Touch</h2>
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-bold text-gray-700">Directors</h3>
-                <p>Syed Samsam Haider & Arif Raza</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+          
+          {/* Left Column: Contact Details + Image */}
+          <div className="space-y-8">
+            <div className="bg-gray-50 p-8 rounded-lg shadow-sm border border-gray-100">
+              <h2 className="text-2xl font-bold mb-6 text-gray-800">Get In Touch</h2>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-bold text-gray-700">Directors</h3>
+                  <p className="text-gray-600">Syed Samsam Haider & Arif Raza</p>
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-700">Phone</h3>
+                  {companyDetails.phone.map(p => (
+                    <a href={`tel:${p}`} key={p} className="block text-acetech-orange hover:underline">{p}</a>
+                  ))}
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-700">Email</h3>
+                  <a href={`mailto:${companyDetails.email}`} className="text-acetech-blue hover:underline">
+                    {companyDetails.email}
+                  </a>
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-700">Address</h3>
+                  <p className="text-gray-600">{companyDetails.address}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-gray-700">Phone</h3>
-                {companyDetails.phone.map(p => <p key={p} className="text-acetech-orange">{p}</p>)}
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-700">Email</h3>
-                <p>{companyDetails.email}</p>
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-700">Address</h3>
-                <p>{companyDetails.address}</p>
-              </div>
+            </div>
+
+            {/* The Image */}
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              {contactImage ? (
+                <GatsbyImage image={contactImage} alt="Acetech Office or Team" className="w-full h-64 object-cover" />
+              ) : (
+                <div className="bg-gray-200 h-64 flex items-center justify-center text-gray-500">
+                  Image not found (Save as src/images/contact.jpg)
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Simple Form */}
-          <form className="space-y-4">
-            <input type="text" placeholder="Your Name" className="w-full border p-3 rounded" />
-            <input type="email" placeholder="Your Email" className="w-full border p-3 rounded" />
-            <textarea placeholder="Message" rows="4" className="w-full border p-3 rounded"></textarea>
-            <button className="bg-acetech-blue text-white px-6 py-3 rounded font-bold hover:bg-blue-800 w-full">
-              Send Message
-            </button>
-          </form>
+          {/* Right Column: Simple Form */}
+          <div className="bg-white p-8 rounded-lg shadow-lg border-t-4 border-acetech-blue">
+            <h2 className="text-2xl font-bold mb-6 text-gray-800">Send us a Message</h2>
+            <form className="space-y-6">
+              <div>
+                <label className="block text-gray-700 font-bold mb-2">Your Name</label>
+                <input type="text" className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue" placeholder="John Doe" />
+              </div>
+              
+              <div>
+                <label className="block text-gray-700 font-bold mb-2">Your Email</label>
+                <input type="email" className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue" placeholder="john@example.com" />
+              </div>
+              
+              <div>
+                <label className="block text-gray-700 font-bold mb-2">Subject</label>
+                <select className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue bg-white">
+                  <option>Residential Construction</option>
+                  <option>Commercial Construction</option>
+                  <option>Industrial Construction</option>
+                  <option>Import/Export Query</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-gray-700 font-bold mb-2">Message</label>
+                <textarea rows="5" className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue" placeholder="How can we help you?"></textarea>
+              </div>
+
+              <button className="bg-acetech-blue text-white px-6 py-4 rounded font-bold hover:bg-blue-800 w-full transition duration-300 uppercase tracking-wide">
+                Send Message
+              </button>
+            </form>
+          </div>
+
         </div>
       </div>
     </Layout>
   )
 }
+
+// GraphQL Query to find the image named "contact"
+export const query = graphql`
+  query {
+    file(name: { eq: "contact" }) {
+      childImageSharp {
+        gatsbyImageData(
+          width: 800
+          placeholder: BLURRED
+          formats: [AUTO, WEBP, AVIF]
+        )
+      }
+    }
+  }
+`
 
 export default ContactPage
