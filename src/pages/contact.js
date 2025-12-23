@@ -5,7 +5,7 @@ import Layout from "../components/Layout"
 import { companyDetails } from "../data/servicesData"
 
 const ContactPage = ({ data }) => {
-  // Get the image data from the query below
+  // Get the image data from the query at the bottom of the file
   const contactImage = getImage(data.file)
 
   return (
@@ -55,37 +55,71 @@ const ContactPage = ({ data }) => {
             </div>
           </div>
 
-          {/* Right Column: Simple Form */}
+          {/* Right Column: Functional Form */}
           <div className="bg-white p-8 rounded-lg shadow-lg border-t-4 border-acetech-blue">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">Send us a Message</h2>
-            <form className="space-y-6">
+            
+            <form 
+              action="https://formspree.io/f/mnjawzgq" 
+              method="POST" 
+              className="space-y-6"
+            >
               <div>
                 <label className="block text-gray-700 font-bold mb-2">Your Name</label>
-                <input type="text" className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue" placeholder="John Doe" />
+                <input 
+                  type="text" 
+                  name="name" 
+                  required
+                  className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue" 
+                  placeholder="John Doe" 
+                />
               </div>
               
               <div>
                 <label className="block text-gray-700 font-bold mb-2">Your Email</label>
-                <input type="email" className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue" placeholder="john@example.com" />
+                <input 
+                  type="email" 
+                  name="email" 
+                  required
+                  className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue" 
+                  placeholder="john@example.com" 
+                />
               </div>
               
               <div>
                 <label className="block text-gray-700 font-bold mb-2">Subject</label>
-                <select className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue bg-white">
-                  <option>Residential Construction</option>
-                  <option>Commercial Construction</option>
-                  <option>Industrial Construction</option>
-                  <option>Import/Export Query</option>
-                  <option>Other</option>
+                <select 
+                  name="subject"
+                  className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue bg-white"
+                >
+                  <option value="Residential Query">Residential Construction</option>
+                  <option value="Commercial Query">Commercial Construction</option>
+                  <option value="Industrial Query">Industrial Construction</option>
+                  <option value="School Query">School Infrastructure</option>
+                  <option value="Hospital Query">Hospital Construction</option>
+                  <option value="Import/Export Query">Import/Export Query</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-gray-700 font-bold mb-2">Message</label>
-                <textarea rows="5" className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue" placeholder="How can we help you?"></textarea>
+                <textarea 
+                  name="message" 
+                  rows="5" 
+                  required
+                  className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue" 
+                  placeholder="How can we help you?"
+                ></textarea>
               </div>
 
-              <button className="bg-acetech-blue text-white px-6 py-4 rounded font-bold hover:bg-blue-800 w-full transition duration-300 uppercase tracking-wide">
+              {/* Hidden field for Subject Line customization in email */}
+              <input type="hidden" name="_subject" value="New Contact from Acetech Website" />
+
+              <button 
+                type="submit" 
+                className="bg-acetech-blue text-white px-6 py-4 rounded font-bold hover:bg-blue-800 w-full transition duration-300 uppercase tracking-wide"
+              >
                 Send Message
               </button>
             </form>
