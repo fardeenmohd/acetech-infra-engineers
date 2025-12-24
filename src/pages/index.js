@@ -10,28 +10,23 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout>
-      {/* Hero Section with Background Image */}
+      {/* 1. Hero Section with Background Image */}
       <div className="relative h-[600px] flex items-center justify-center text-center text-white overflow-hidden font-sans">
-        {/* 1. The Background Image Layer */}
         <div className="absolute inset-0">
             {heroImage ? (
                 <GatsbyImage 
                   image={heroImage} 
                   alt="Acetech Construction Site" 
                   className="h-full w-full object-cover" 
-                  loading="eager" // Load this immediately as it's above the fold
+                  loading="eager" 
                 />
             ) : (
-                // Fallback just in case image isn't found
                  <div className="h-full w-full bg-acetech-blue"></div>
             )}
-           {/* 2. Dark Overlay Layer (crucial for text readability) */}
            <div className="absolute inset-0 bg-black/60"></div>
         </div>
 
-        {/* 3. The Content Layer (z-index puts it on top) */}
         <div className="relative z-10 container mx-auto px-4 flex flex-col items-center">
-            {/* Small pre-title tag */}
             <span className="uppercase tracking-[0.2em] text-acetech-orange font-bold mb-4 text-sm md:text-base">
                 Engineering Excellence
             </span>
@@ -50,7 +45,34 @@ const IndexPage = ({ data }) => {
         </div>
       </div>
 
-      {/* Services Grid Section */}
+      {/* 2. NEW: Video Showcase Section */}
+      <div className="w-full bg-black relative">
+        {/* The Video Player */}
+        <video
+          className="w-full h-[400px] md:h-[500px] object-cover opacity-60"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          {/* This src points to static/promo.mp4 */}
+          <source src="/promo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        {/* Overlay Text on Video */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+           <h2 className="text-3xl md:text-5xl text-white font-bold uppercase tracking-widest drop-shadow-xl mb-4">
+             See Us In Action
+           </h2>
+           <div className="w-24 h-1 bg-acetech-orange mb-6"></div>
+           <p className="text-gray-200 max-w-2xl text-lg drop-shadow-md">
+             From heavy industrial foundations to delicate healthcare interiors, we deliver precision at every scale.
+           </p>
+        </div>
+      </div>
+
+      {/* 3. Services Grid Section */}
       <div className="bg-gray-50 py-20">
         <div className="container mx-auto px-4">
             <div className="text-center mb-16">
@@ -62,7 +84,6 @@ const IndexPage = ({ data }) => {
             {Object.values(servicesData).map((service) => (
                 <Link to={service.slug} key={service.slug} className="group h-full">
                 <div className="bg-white border-b-4 border-transparent hover:border-acetech-orange shadow-md hover:shadow-xl rounded-xl p-8 transition-all duration-300 h-full flex flex-col relative overflow-hidden">
-                    {/* Subtle hover icon effect */}
                     <div className="absolute top-0 right-0 -mt-4 -mr-4 text-gray-100 group-hover:text-blue-50 transition-colors duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
                     </div>
@@ -87,7 +108,6 @@ const IndexPage = ({ data }) => {
   )
 }
 
-// GraphQL Query to find the image named "home-hero"
 export const query = graphql`
   query {
     file(name: { eq: "home-hero" }) {
