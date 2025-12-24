@@ -58,7 +58,7 @@ const Layout = ({ children }) => {
               )}
               {/* Hide text on very small screens if needed, but keeping it visible is usually better */}
               <span className="text-lg md:text-xl font-bold uppercase tracking-wider truncate max-w-[150px] md:max-w-none">
-                Acetech
+                Acetech Infra Engineers
               </span>
             </Link>
 
