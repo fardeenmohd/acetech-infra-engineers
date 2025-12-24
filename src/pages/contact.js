@@ -5,7 +5,7 @@ import Layout from "../components/Layout"
 import { companyDetails } from "../data/servicesData"
 
 const ContactPage = ({ data }) => {
-  // Get the image data from the query at the bottom of the file
+  // Get the image data
   const contactImage = getImage(data.file)
 
   return (
@@ -43,10 +43,17 @@ const ContactPage = ({ data }) => {
               </div>
             </div>
 
-            {/* The Image */}
-            <div className="rounded-xl overflow-hidden shadow-lg">
+            {/* The Image Section - Updated to prevent cropping */}
+            <div className="rounded-xl overflow-hidden shadow-lg border-4 border-white">
               {contactImage ? (
-                <GatsbyImage image={contactImage} alt="Acetech Office or Team" className="w-full h-64 object-cover" />
+                <GatsbyImage 
+                  image={contactImage} 
+                  alt="Acetech Office or Team" 
+                  // Removed 'h-64' and 'object-cover'
+                  // Added 'h-auto' to let the image set its own height
+                  className="w-full h-auto block"
+                  objectFit="contain"
+                />
               ) : (
                 <div className="bg-gray-200 h-64 flex items-center justify-center text-gray-500">
                   Image not found (Save as src/images/contact.jpg)
@@ -131,13 +138,14 @@ const ContactPage = ({ data }) => {
   )
 }
 
-// GraphQL Query to find the image named "contact"
+// Updated GraphQL Query
+// Changed 'width: 800' to 'layout: FULL_WIDTH' for better resolution
 export const query = graphql`
   query {
     file(name: { eq: "contact" }) {
       childImageSharp {
         gatsbyImageData(
-          width: 800
+          layout: FULL_WIDTH 
           placeholder: BLURRED
           formats: [AUTO, WEBP, AVIF]
         )

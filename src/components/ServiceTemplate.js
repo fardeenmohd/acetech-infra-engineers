@@ -4,7 +4,7 @@ import { Link, useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const ServiceTemplate = ({ service }) => {
-  // 1. Fetch ALL images from the images folder
+  // 1. Fetch ALL images
   const data = useStaticQuery(graphql`
     query {
       allFile(filter: {sourceInstanceName: {eq: "images"}}) {
@@ -12,9 +12,10 @@ const ServiceTemplate = ({ service }) => {
           name
           childImageSharp {
             gatsbyImageData(
-              width: 800
+              quality: 90
               placeholder: BLURRED
               formats: [AUTO, WEBP, AVIF]
+              layout: FULL_WIDTH
             )
           }
         }
@@ -22,7 +23,7 @@ const ServiceTemplate = ({ service }) => {
     }
   `);
 
-  // 2. Find the specific image that matches our service.imageName
+  // 2. Find the specific image
   const imageNode = data.allFile.nodes.find(node => node.name === service.imageName);
   const image = getImage(imageNode);
 
@@ -42,10 +43,18 @@ const ServiceTemplate = ({ service }) => {
           
           {/* Left Column: Image + Technical Points */}
           <div>
-            {/* IMAGE DISPLAY */}
-            <div className="rounded-xl overflow-hidden shadow-xl mb-8 border-4 border-white">
+            {/* IMAGE DISPLAY 
+               - Removed fixed aspect ratio constraints
+               - 'w-full h-auto' allows the image to dictate height
+            */}
+            <div className="rounded-xl overflow-hidden shadow-xl mb-8 border-4 border-white bg-white">
                {image ? (
-                 <GatsbyImage image={image} alt={service.title} />
+                 <GatsbyImage 
+                    image={image} 
+                    alt={service.title} 
+                    className="w-full h-auto"
+                    objectFit="contain" // Ensures no cropping happens
+                 />
                ) : (
                  <div className="bg-gray-300 h-64 flex items-center justify-center">
                    <p className="text-gray-500">Image not found: {service.imageName}</p>
