@@ -10,44 +10,54 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout>
-      {/* 1. Hero Section with Background Image */}
-      <div className="relative h-[600px] flex items-center justify-center text-center text-white overflow-hidden font-sans">
-        <div className="absolute inset-0">
+      {/* 1. Hero Section: Changed 'h-[600px]' to 'relative w-full' to respect image ratio */}
+      <div className="relative w-full text-white font-sans">
+        
+        {/* The Background Image Layer */}
+        {/* We removed 'absolute' so this image now pushes the container open to its full height */}
+        <div className="relative">
             {heroImage ? (
                 <GatsbyImage 
                   image={heroImage} 
                   alt="Acetech Construction Site" 
-                  className="h-full w-full object-cover" 
+                  // Removed 'object-cover' and 'h-full'. 
+                  // 'block' removes tiny spacing at the bottom of images.
+                  className="w-full h-auto block" 
                   loading="eager" 
                 />
             ) : (
-                 <div className="h-full w-full bg-acetech-blue"></div>
+                 <div className="h-[500px] w-full bg-acetech-blue"></div>
             )}
-           <div className="absolute inset-0 bg-black/60"></div>
+           {/* Dark Overlay Layer - sits on top of the image */}
+           <div className="absolute inset-0 bg-black/50"></div>
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 flex flex-col items-center">
-            <span className="uppercase tracking-[0.2em] text-acetech-orange font-bold mb-4 text-sm md:text-base">
+        {/* 2. The Content Layer - Positioned absolutely over the image */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+            <span className="uppercase tracking-[0.2em] text-acetech-orange font-bold mb-2 md:mb-4 text-xs md:text-base">
                 Engineering Excellence
             </span>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
+            {/* Added standard responsive text sizing */}
+            <h1 className="text-2xl md:text-5xl lg:text-7xl font-extrabold mb-3 md:mb-6 leading-tight drop-shadow-lg">
                 Building the Future <br className="hidden md:block"/> in Gurugram
             </h1>
-            <p className="text-lg md:text-2xl mb-10 max-w-3xl mx-auto opacity-90 font-light drop-shadow-md">
+            
+            {/* Hidden on very small screens to ensure image isn't covered completely */}
+            <p className="hidden md:block text-sm md:text-2xl mb-6 md:mb-10 max-w-3xl mx-auto opacity-90 font-light drop-shadow-md">
             Your trusted partner for specialized Residential, Commercial, Industrial, and Healthcare infrastructure development.
             </p>
+            
             <Link 
                 to="/contact" 
-                className="bg-acetech-orange text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-orange-600 transition transform hover:-translate-y-1 shadow-lg"
+                className="bg-acetech-orange text-white px-6 py-2 md:px-10 md:py-4 rounded-full font-bold text-xs md:text-lg hover:bg-orange-600 transition transform hover:-translate-y-1 shadow-lg"
             >
             Start Your Project Now
             </Link>
         </div>
       </div>
 
-      {/* 2. NEW: Video Showcase Section */}
+      {/* 2. Video Showcase Section */}
       <div className="w-full bg-black relative">
-        {/* The Video Player */}
         <video
           className="w-full h-[400px] md:h-[500px] object-cover opacity-60"
           autoPlay
@@ -55,12 +65,10 @@ const IndexPage = ({ data }) => {
           loop
           playsInline
         >
-          {/* This src points to static/promo.mp4 */}
           <source src="/promo.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
-        {/* Overlay Text on Video */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
            <h2 className="text-3xl md:text-5xl text-white font-bold uppercase tracking-widest drop-shadow-xl mb-4">
              See Us In Action
