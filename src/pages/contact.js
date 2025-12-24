@@ -5,12 +5,12 @@ import Layout from "../components/Layout"
 import { companyDetails } from "../data/servicesData"
 
 const ContactPage = ({ data }) => {
-  // Get the image data
   const contactImage = getImage(data.file)
 
   return (
     <Layout>
       <div className="container mx-auto px-4 py-16">
+        {/* Title updated to Navy Blue */}
         <h1 className="text-4xl font-bold text-center mb-12 text-acetech-blue">Contact Us</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
@@ -27,12 +27,16 @@ const ContactPage = ({ data }) => {
                 <div>
                   <h3 className="font-bold text-gray-700">Phone</h3>
                   {companyDetails.phone.map(p => (
-                    <a href={`tel:${p}`} key={p} className="block text-acetech-orange hover:underline">{p}</a>
+                    // CHANGED: Dark text for readability, Yellow only on hover
+                    <a href={`tel:${p}`} key={p} className="block text-gray-800 font-medium hover:text-acetech-orange transition-colors">
+                      {p}
+                    </a>
                   ))}
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-700">Email</h3>
-                  <a href={`mailto:${companyDetails.email}`} className="text-acetech-blue hover:underline">
+                  {/* CHANGED: Navy Blue text for contrast */}
+                  <a href={`mailto:${companyDetails.email}`} className="text-acetech-blue font-bold hover:underline">
                     {companyDetails.email}
                   </a>
                 </div>
@@ -43,14 +47,12 @@ const ContactPage = ({ data }) => {
               </div>
             </div>
 
-            {/* The Image Section - Updated to prevent cropping */}
+            {/* The Image Section */}
             <div className="rounded-xl overflow-hidden shadow-lg border-4 border-white">
               {contactImage ? (
                 <GatsbyImage 
                   image={contactImage} 
                   alt="Acetech Office or Team" 
-                  // Removed 'h-64' and 'object-cover'
-                  // Added 'h-auto' to let the image set its own height
                   className="w-full h-auto block"
                   objectFit="contain"
                 />
@@ -63,7 +65,8 @@ const ContactPage = ({ data }) => {
           </div>
 
           {/* Right Column: Functional Form */}
-          <div className="bg-white p-8 rounded-lg shadow-lg border-t-4 border-acetech-blue">
+          {/* CHANGED: Border top is now Yellow (acetech-orange) */}
+          <div className="bg-white p-8 rounded-lg shadow-lg border-t-4 border-acetech-orange">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">Send us a Message</h2>
             
             <form 
@@ -77,7 +80,8 @@ const ContactPage = ({ data }) => {
                   type="text" 
                   name="name" 
                   required
-                  className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue" 
+                  // CHANGED: Focus border is now Yellow
+                  className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-orange focus:ring-1 focus:ring-acetech-orange transition-colors" 
                   placeholder="John Doe" 
                 />
               </div>
@@ -88,7 +92,7 @@ const ContactPage = ({ data }) => {
                   type="email" 
                   name="email" 
                   required
-                  className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue" 
+                  className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-orange focus:ring-1 focus:ring-acetech-orange transition-colors" 
                   placeholder="john@example.com" 
                 />
               </div>
@@ -97,7 +101,7 @@ const ContactPage = ({ data }) => {
                 <label className="block text-gray-700 font-bold mb-2">Subject</label>
                 <select 
                   name="subject"
-                  className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue bg-white"
+                  className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-orange focus:ring-1 focus:ring-acetech-orange bg-white transition-colors"
                 >
                   <option value="Residential Query">Residential Construction</option>
                   <option value="Commercial Query">Commercial Construction</option>
@@ -115,17 +119,17 @@ const ContactPage = ({ data }) => {
                   name="message" 
                   rows="5" 
                   required
-                  className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-blue" 
+                  className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-acetech-orange focus:ring-1 focus:ring-acetech-orange transition-colors" 
                   placeholder="How can we help you?"
                 ></textarea>
               </div>
 
-              {/* Hidden field for Subject Line customization in email */}
               <input type="hidden" name="_subject" value="New Contact from Acetech Website" />
 
+              {/* CHANGED: Button is now Yellow background with Black text to match header */}
               <button 
                 type="submit" 
-                className="bg-acetech-blue text-white px-6 py-4 rounded font-bold hover:bg-blue-800 w-full transition duration-300 uppercase tracking-wide"
+                className="bg-acetech-orange text-gray-900 px-6 py-4 rounded font-bold hover:bg-yellow-400 w-full transition duration-300 uppercase tracking-wide shadow-md"
               >
                 Send Message
               </button>
@@ -138,8 +142,6 @@ const ContactPage = ({ data }) => {
   )
 }
 
-// Updated GraphQL Query
-// Changed 'width: 800' to 'layout: FULL_WIDTH' for better resolution
 export const query = graphql`
   query {
     file(name: { eq: "contact" }) {
