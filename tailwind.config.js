@@ -7,8 +7,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'acetech-blue': '#1e3a8a', // Dark blue for construction vibe
-        'acetech-orange': '#ea580c', // Safety orange for accents
+        // Primary: Deep Navy Slate (Trust, Ocean, Stability)
+        'acetech-blue': '#0f172a', 
+        
+        // Accent: Safety Gold / Amber (Construction, Caution, High-Vis)
+        'acetech-orange': '#eab308', 
       }
     },
   },

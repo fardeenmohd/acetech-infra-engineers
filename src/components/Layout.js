@@ -15,8 +15,7 @@ const Layout = ({ children }) => {
     { name: "School", link: "/school" },
     { name: "Hospital", link: "/hospital" },
     { name: "Import/Export", link: "/import-export" },
-    // We keep Contact in the list for the Desktop menu loop, 
-    // but we might style it differently or just let it be a standard link.
+    // CHANGED: "Contact" -> "Contact Us"
     { name: "Contact Us", link: "/contact" },
   ];
 
@@ -41,7 +40,7 @@ const Layout = ({ children }) => {
     <div className="flex flex-col min-h-screen font-sans text-gray-800">
       
       {/* HEADER SECTION */}
-      <nav className="bg-acetech-blue text-white shadow-lg sticky top-0 z-50">
+      <nav className="bg-acetech-blue text-white shadow-lg sticky top-0 z-50 transition-colors duration-300">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-3">
             
@@ -54,23 +53,24 @@ const Layout = ({ children }) => {
                   className="w-10 h-10 md:w-12 md:h-12 object-contain bg-white rounded-full p-1" 
                 />
               ) : (
-                <div className="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center font-bold">AE</div>
+                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center font-bold text-acetech-orange border border-white/20">
+                  AE
+                </div>
               )}
-              {/* Hide text on very small screens if needed, but keeping it visible is usually better */}
-              <span className="text-lg md:text-xl font-bold uppercase tracking-wider truncate max-w-[150px] md:max-w-none">
-                Acetech Infra Engineers
+              <span className="text-lg md:text-xl font-bold uppercase tracking-wider truncate max-w-[150px] md:max-w-none group-hover:text-acetech-orange transition-colors">
+                Acetech
               </span>
             </Link>
 
-            {/* 2. DESKTOP MENU (Hidden on Mobile/Tablet < lg) */}
+            {/* 2. DESKTOP MENU */}
             <div className="hidden lg:flex items-center space-x-6 text-sm font-medium">
               {navLinks.map((item) => (
-                // If it's the Contact link, we can style it as a button on Desktop too
+                // UPDATED CHECK: now checking for "Contact Us"
                 item.name === "Contact Us" ? (
                     <Link 
                         key={item.name} 
                         to={item.link} 
-                        className="bg-acetech-orange hover:bg-orange-600 text-white px-5 py-2 rounded-full transition duration-300 shadow-md"
+                        className="bg-acetech-orange hover:bg-yellow-400 text-black font-bold px-5 py-2 rounded-full transition duration-300 shadow-md"
                     >
                         {item.name}
                     </Link>
@@ -88,29 +88,23 @@ const Layout = ({ children }) => {
               ))}
             </div>
 
-            {/* 3. MOBILE ACTIONS (Visible < lg) */}
+            {/* 3. MOBILE ACTIONS */}
             <div className="lg:hidden flex items-center gap-3">
-                
-                {/* A. The "Always Visible" Mobile Contact Button */}
+                {/* CHANGED: Mobile button text updated */}
                 <Link 
                     to="/contact" 
-                    className="bg-acetech-orange hover:bg-orange-600 text-white text-xs font-bold px-3 py-2 rounded shadow-sm flex items-center"
+                    className="bg-acetech-orange hover:bg-yellow-400 text-black text-xs font-bold px-3 py-2 rounded shadow-sm flex items-center transition-colors"
                 >
                     <span>Contact Us</span>
-                    {/* Optional small arrow icon */}
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
                 </Link>
 
-                {/* B. Hamburger Button */}
                 <button 
                     className="focus:outline-none p-1" 
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     aria-label="Toggle Menu"
                 >
                     {isMenuOpen ? (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-acetech-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     ) : (
@@ -124,13 +118,13 @@ const Layout = ({ children }) => {
         </div>
 
         {/* 4. MOBILE MENU DROPDOWN */}
-        <div className={`lg:hidden bg-blue-900 overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? "max-h-screen py-4 opacity-100 shadow-inner" : "max-h-0 py-0 opacity-0"}`}>
+        <div className={`lg:hidden bg-acetech-blue overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? "max-h-screen py-4 opacity-100 shadow-inner border-t border-white/10" : "max-h-0 py-0 opacity-0"}`}>
           <div className="container mx-auto px-4 flex flex-col space-y-4">
             {navLinks.map((item) => (
               <Link 
                 key={item.name} 
                 to={item.link} 
-                className="block text-white text-lg border-b border-blue-800 pb-2 hover:text-acetech-orange"
+                className="block text-white text-lg border-b border-white/10 pb-2 hover:text-acetech-orange"
                 activeClassName="text-acetech-orange font-bold"
                 onClick={() => setIsMenuOpen(false)}
               >
